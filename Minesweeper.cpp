@@ -1,3 +1,16 @@
+/**
+*
+* Solution to course project #7
+* Introduction to programming course
+* Faculty of Mathematics and Informatics of Sofia University
+* Winter semester 2022/2023
+*
+* @author Silvana Nikolova
+* @idnumber 0MI0600152 @compiler VC
+*
+* 
+*
+*/
 
 #include <iostream>;
 using namespace std;
@@ -241,7 +254,7 @@ bool openCommand(int row, int col, char** playboard, char** myBoard, int size)
 		return true;
 	}
 
-	//get count of neighbours mines and put it on the board
+	//get count of neighbour mines and display it on the board
 	int count = countNeighbourMines(myBoard, row, col, size);
 	playboard[row][col] = count + '0';
 
@@ -546,24 +559,15 @@ bool markCommand(char** playboard, char** myBoard, int row, int col, int size)
 	playboard[row][col] = '*';
 
 	//this function checks if the player guessed all places of the mines
-	if (isMatchingMines(playboard, myBoard, size))
-	{
-		return true;
-	}
-
-	return false;
+	return isMatchingMines(playboard, myBoard, size);
 }
 
 bool unmarkCommand(char** playboard, char** myBoard, int row, int col, int size)
 {
 	playboard[row][col] = '-';
 
-	if (isMatchingMines(playboard, myBoard, size))
-	{
-		return true;
-	}
-
-	return false;
+	//this function checks if the player guessed all places of the mines
+	return isMatchingMines(playboard, myBoard, size);
 }
 
 int playMinesweer(char** playboard, char** myBoard, int size)
@@ -658,6 +662,7 @@ int playMinesweer(char** playboard, char** myBoard, int size)
 			playMinesweer(playboard, myBoard, size);
 		}
 
+		//the function returns true if the player guessed all the mines
 		bool isWInning = unmarkCommand(playboard, myBoard, row, col, size);
 
 		if (isWInning)
